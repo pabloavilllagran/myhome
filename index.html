@@ -78,6 +78,8 @@
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--rule);
   }
+  .topbar{ position:sticky; }
+  .topbar .wrap{ position:relative; }
   .topbar .wrap{
     display:flex; align-items:center; justify-content:space-between;
     gap:20px; height:60px;
@@ -271,6 +273,76 @@
     transition:color .18s, border-color .18s;
   }
   .foot-links a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
+
+  /* ---------- Reproductor ---------- */
+  .topright{ display:flex; align-items:center; gap:clamp(12px,3vw,20px); }
+
+  .music-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.72rem;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-2); background:transparent;
+    border:1px solid var(--rule); border-radius:999px;
+    padding:6px 12px; cursor:pointer;
+    transition:color .18s, border-color .18s;
+  }
+  .music-btn:hover{ color:var(--ink); border-color:var(--accent); }
+  .music-btn[aria-expanded="true"]{ color:var(--ink); border-color:var(--accent); }
+
+  .eq{ display:inline-flex; align-items:flex-end; gap:2px; height:11px; }
+  .eq i{
+    width:2px; background:var(--accent); border-radius:1px;
+    height:4px; display:block;
+    animation:eq 1s ease-in-out infinite;
+  }
+  .eq i:nth-child(2){ animation-delay:.22s; }
+  .eq i:nth-child(3){ animation-delay:.44s; }
+  @keyframes eq{ 0%,100%{ height:3px } 50%{ height:11px } }
+  @media (prefers-reduced-motion: reduce){ .eq i{ animation:none; height:7px } }
+
+  .music-panel{
+    position:absolute;
+    top:calc(100% + 10px);
+    right:clamp(22px, 6vw, 40px);
+    width:min(340px, calc(100vw - 32px));
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    box-shadow:0 18px 44px rgba(0,0,0,0.13);
+    padding:18px;
+    z-index:40;
+  }
+  .music-panel h3{
+    font-family:var(--display); font-weight:500;
+    font-size:1.02rem; letter-spacing:-0.01em;
+    margin:0 0 3px;
+  }
+  .music-panel > .mono{ display:block; margin-bottom:14px; }
+
+  .pl-list{ list-style:none; margin:0 0 14px; padding:0; }
+  .pl{
+    width:100%; text-align:left; cursor:pointer;
+    background:transparent; border:0; border-top:1px solid var(--rule);
+    padding:11px 0 12px; color:inherit; font:inherit;
+    display:block;
+  }
+  .pl:first-child{ border-top:0; padding-top:0; }
+  .pl b{
+    display:block; font-weight:500; font-size:0.94rem;
+    line-height:1.35; margin-bottom:3px;
+  }
+  .pl small{
+    display:block; font-size:0.8rem; line-height:1.45;
+    color:var(--ink-3);
+  }
+  .pl[aria-current="true"] b{ color:var(--accent); }
+  .pl:hover b{ color:var(--accent); }
+
+  .pl-player{
+    border-radius:8px; overflow:hidden;
+    background:var(--paper-2); min-height:80px;
+  }
+  .pl-player iframe{ display:block; width:100%; height:152px; border:0; }
 </style>
 </head>
 <body>
@@ -281,10 +353,23 @@
       <img src="foto.jpg" alt="">
       Pablo Villagrán
     </a>
-    <nav class="nav">
-      <a href="#tips">Tips</a>
-      <a href="#videos">Videos</a>
-    </nav>
+    <div class="topright">
+      <nav class="nav">
+        <a href="#tips">Tips</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button class="music-btn" id="music-btn" aria-expanded="false" aria-controls="music-panel">
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        Sonando
+      </button>
+    </div>
+
+    <div class="music-panel" id="music-panel" hidden>
+      <h3>Lo que suena mientras trabajo</h3>
+      <span class="mono">Spotify</span>
+      <ul class="pl-list" id="pl-list"></ul>
+      <div class="pl-player" id="pl-player"></div>
+    </div>
   </div>
 </header>
 
@@ -423,6 +508,64 @@ document.getElementById("stat-tips").textContent =
 document.getElementById("stat-updated").textContent =
   TIPS.length ? `Actualizado ${fmt(TIPS[0].fecha)}` : "";
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ---------- Reproductor de playlists ---------- */
+const PLAYLISTS = [
+  {
+    id: "62ZOeht7Sq5vjDSmX6lItX",
+    nombre: "Hiperfoco Mix",
+    detalle: "Propia · 30 canciones, 2 h 08 min. Boards of Canada, Daft Punk, Jean-Michel Jarre, Aphex Twin."
+  },
+  {
+    id: "0F1xjpUYQ1KeXnbwgbL7bf",
+    nombre: "Ondas Gamma para concentración",
+    detalle: "Guardada · 442 pistas binaurales. Para las sesiones largas frente a una planilla."
+  }
+];
+
+const btn = document.getElementById("music-btn");
+const panel = document.getElementById("music-panel");
+const plList = document.getElementById("pl-list");
+const plPlayer = document.getElementById("pl-player");
+
+plList.innerHTML = PLAYLISTS.map((p, i) => `
+  <li>
+    <button class="pl" data-id="${p.id}" aria-current="${i === 0}">
+      <b>${p.nombre}</b>
+      <small>${p.detalle}</small>
+    </button>
+  </li>
+`).join("");
+
+let cargado = false;
+const cargar = id => {
+  plPlayer.innerHTML = `<iframe src="https://open.spotify.com/embed/playlist/${id}?utm_source=generator" title="Reproductor de Spotify" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+};
+
+const abrir = estado => {
+  panel.hidden = !estado;
+  btn.setAttribute("aria-expanded", String(estado));
+  if (estado && !cargado) { cargar(PLAYLISTS[0].id); cargado = true; }
+};
+
+btn.addEventListener("click", () => abrir(panel.hidden));
+
+plList.addEventListener("click", e => {
+  const b = e.target.closest(".pl");
+  if (!b) return;
+  plList.querySelectorAll(".pl").forEach(x => x.setAttribute("aria-current", String(x === b)));
+  cargar(b.dataset.id);
+  cargado = true;
+});
+
+document.addEventListener("click", e => {
+  if (panel.hidden) return;
+  if (!panel.contains(e.target) && !btn.contains(e.target)) abrir(false);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !panel.hidden) { abrir(false); btn.focus(); }
+});
+
 </script>
 
 </body>
