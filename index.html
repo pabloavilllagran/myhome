@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pablo Villagrán</title>
+<meta name="description" content="Sitio personal de Pablo Villagrán — Analista de Personas en Melinka, Aysén.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b1420'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e8a33d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1420;
+    --bg-soft:#0f1c28;
+    --card:#132531;
+    --line:rgba(233,243,245,0.09);
+    --ink:#eef3f5;
+    --ink-dim:#93a8b4;
+    --amber:#e8a33d;
+    --teal:#5fb3ab;
+    --display: 'Fraunces', serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(95,179,171,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(232,163,61,0.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  ::selection{ background:var(--amber); color:#0b1420; }
+
+  :focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 clamp(20px, 5vw, 48px);
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--teal);
+    display:inline-block;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding-top:64px;
+    padding-bottom:64px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .id-card{
+    position:absolute;
+    top:32px; right:clamp(20px, 5vw, 48px);
+    width:104px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--bg-soft);
+    box-shadow:0 10px 28px rgba(0,0,0,0.4);
+  }
+  .id-card img{
+    display:block;
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    filter:grayscale(12%) contrast(1.05);
+  }
+  .id-card .id-tag{
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.08em;
+    text-align:center;
+    color:var(--ink-dim);
+    padding:6px 4px 7px;
+    border-top:1px solid var(--line);
+    line-height:1.5;
+  }
+  .id-card .id-tag b{ color:var(--amber); }
+
+  @media (max-width:560px){
+    .id-card{ width:76px; top:20px; }
+    .id-card .id-tag{ font-size:0.52rem; padding:4px 2px 5px; }
+  }
+
+  .hero h1{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    line-height:1.02;
+    margin:0.5em 0 0.3em;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--amber);
+  }
+
+  .hero p{
+    max-width:38ch;
+    color:var(--ink-dim);
+    font-size:1.08rem;
+    margin:0 0 2.2em;
+  }
+
+  .scroll-cue{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    color:var(--ink-dim);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5em;
+    width:fit-content;
+  }
+  .scroll-cue span{
+    display:inline-block;
+    animation:bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(4px); }
+  }
+
+  /* ---------- Sections ---------- */
+  section{ padding:96px 0; }
+  section h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(1.7rem, 4vw, 2.5rem);
+    margin:0.35em 0 0.6em;
+    max-width:20ch;
+  }
+  .lede{
+    color:var(--ink-dim);
+    max-width:58ch;
+    font-size:1.02rem;
+  }
+
+  /* ---------- Route diagram ---------- */
+  .map-frame{
+    margin-top:48px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--bg-soft);
+    padding:clamp(16px, 3vw, 32px) clamp(12px, 3vw, 28px) 20px;
+    overflow-x:auto;
+  }
+  .map-frame svg{ display:block; width:100%; height:auto; min-width:560px; }
+  .route-line{
+    fill:none;
+    stroke:var(--line);
+    stroke-width:2;
+    stroke-dasharray:5 7;
+  }
+  .route-dot{ fill:var(--bg-soft); stroke:var(--teal); stroke-width:2; }
+  .route-code{
+    font-family:var(--mono);
+    font-size:12px;
+    fill:var(--amber);
+    letter-spacing:0.06em;
+  }
+  .route-name{
+    font-family:var(--body);
+    font-size:11px;
+    fill:var(--ink-dim);
+  }
+  .route-marker{
+    fill:var(--amber);
+    offset-path: path("M60,200 L220,80 L380,190 L540,70 L700,180 L840,90");
+    animation: fly 16s linear infinite alternate;
+  }
+  @keyframes fly{
+    from{ offset-distance:0%; }
+    to{ offset-distance:100%; }
+  }
+  .map-caption{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    letter-spacing:0.04em;
+    margin-top:14px;
+  }
+
+  /* ---------- Bitácora cards ---------- */
+  .grid{
+    margin-top:48px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .card{
+    background:var(--card);
+    padding:28px 26px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .card.visible{ opacity:1; transform:translateY(0); }
+  .card-label{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+  .card-value{
+    font-family:var(--display);
+    font-size:1.3rem;
+    font-weight:600;
+    margin:0.4em 0 0.35em;
+  }
+  .card-detail{
+    color:var(--ink-dim);
+    font-size:0.94rem;
+    margin:0;
+  }
+
+  .playlist-card{
+    text-decoration:none;
+    display:block;
+    transition:background 0.25s ease;
+  }
+  .playlist-card:hover, .playlist-card:focus-visible{
+    background:#173344;
+  }
+  .playlist-card .ext{
+    color:var(--amber);
+    font-weight:400;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:64px 0 48px;
+    border-top:1px solid var(--line);
+  }
+  .terminal{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    color:var(--ink-dim);
+    margin-bottom:28px;
+  }
+  .terminal .prompt{ color:var(--teal); }
+  .terminal .out{ color:var(--amber); }
+
+  .footer-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    font-size:0.85rem;
+    color:var(--ink-dim);
+  }
+  .footer-row a{
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-row a:hover{ border-color:var(--amber); color:var(--ink); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .scroll-cue span{ animation:none; }
+    .route-marker{ animation:none; offset-distance:0%; }
+    .card{ transition:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="id-card">
+    <img src="foto.jpg" alt="Foto de Pablo Villagrán">
+    <p class="id-tag"><b>PVM</b><br>MELINKA</p>
+  </div>
+  <p class="eyebrow">Análisis de personas / herramientas propias</p>
+  <h1>Pablo<br><em>Villagrán</em></h1>
+  <p>Trabajo con personas y con planillas en un archipiélago al sur de Chile. Cuando algo no existe, lo construyo yo mismo.</p>
+  <a href="#ruta" class="scroll-cue">bajar <span>↓</span></a>
+</header>
+
+<main>
+  <section id="ruta" class="wrap">
+    <p class="eyebrow">Cómo se ve mi semana</p>
+    <h2>Entre islas, turnos y planillas</h2>
+    <p class="lede">Coordino los cambios de turno del personal entre Melinka, Puerto Montt y los centros de la zona: manifiestos de vuelo, rotaciones, comunicación interna. Cuando las herramientas que me dan no alcanzan, armo las que faltan — normalmente en un solo archivo, sin depender de nadie más para que funcionen.</p>
+
+    <div class="map-frame">
+      <svg viewBox="0 0 900 260" role="img" aria-label="Esquema de la ruta operativa entre Puerto Montt, Melinka y los centros de la zona">
+        <path class="route-line" d="M60,200 L220,80 L380,190 L540,70 L700,180 L840,90"></path>
+        <circle class="route-marker" r="5"></circle>
+
+        <g>
+          <circle class="route-dot" cx="60" cy="200" r="5"></circle>
+          <text class="route-code" x="60" y="228" text-anchor="middle">PMC</text>
+          <text class="route-name" x="60" y="242" text-anchor="middle">Pto. Montt</text>
+        </g>
+        <g>
+          <circle class="route-dot" cx="220" cy="80" r="5"></circle>
+          <text class="route-code" x="220" y="60" text-anchor="middle">MEL</text>
+          <text class="route-name" x="220" y="46" text-anchor="middle">Melinka</text>
+        </g>
+        <g>
+          <circle class="route-dot" cx="380" cy="190" r="5"></circle>
+          <text class="route-code" x="380" y="218" text-anchor="middle">LCB</text>
+          <text class="route-name" x="380" y="232" text-anchor="middle">Lago Cabrera</text>
+        </g>
+        <g>
+          <circle class="route-dot" cx="540" cy="70" r="5"></circle>
+          <text class="route-code" x="540" y="50" text-anchor="middle">ITO</text>
+          <text class="route-name" x="540" y="36" text-anchor="middle">Isla Toto</text>
+        </g>
+        <g>
+          <circle class="route-dot" cx="700" cy="180" r="5"></circle>
+          <text class="route-code" x="700" y="208" text-anchor="middle">CKG</text>
+          <text class="route-name" x="700" y="222" text-anchor="middle">Canal King</text>
+        </g>
+        <g>
+          <circle class="route-dot" cx="840" cy="90" r="5"></circle>
+          <text class="route-code" x="840" y="70" text-anchor="middle">PAG</text>
+          <text class="route-name" x="840" y="56" text-anchor="middle">Pto. Aguirre</text>
+        </g>
+      </svg>
+      <p class="map-caption">Esquema, no a escala. Los códigos son míos — no oficiales, pero los turnos sí son reales.</p>
+    </div>
+  </section>
+
+  <section id="bitacora" class="wrap">
+    <p class="eyebrow">Fuera del horario</p>
+    <h2>Algunos datos que no salen en el organigrama</h2>
+
+    <div class="grid">
+      <article class="card">
+        <p class="card-label">Instrumento</p>
+        <p class="card-value">Guitarra clásica</p>
+        <p class="card-detail">Una Tizona comprada hace más de veinte años. Volvió a salir del estuche después de mucho tiempo guardada.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Personaje</p>
+        <p class="card-value">Nigromante · VIEJOQL</p>
+        <p class="card-detail">Diablo Immortal y Diablo II: Resurrected. Prefiero invocar antes que pelear de frente.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Ritmo de trabajo</p>
+        <p class="card-value">160 BPM</p>
+        <p class="card-detail">Música electrónica constante cuando necesito concentrarme en una planilla o un tablero nuevo.</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">Detrás de cámara</p>
+        <p class="card-value">Foto y video</p>
+        <p class="card-detail">Explorando herramientas nuevas para contar mejor lo que pasa en el trabajo, sin perder horas editando.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="playlists" class="wrap">
+    <p class="eyebrow">Para concentrarme</p>
+    <h2>Lo que suena mientras trabajo</h2>
+
+    <div class="grid">
+      <a class="card playlist-card" href="https://open.spotify.com/playlist/62ZOeht7Sq5vjDSmX6lItX" target="_blank" rel="noopener">
+        <p class="card-label">Playlist propia <span class="ext">↗</span></p>
+        <p class="card-value">Hiperfoco Mix</p>
+        <p class="card-detail">30 canciones · 2 h 08 min. Boards of Canada, Daft Punk, Jean-Michel Jarre, Aphex Twin.</p>
+      </a>
+
+      <a class="card playlist-card" href="https://open.spotify.com/playlist/0F1xjpUYQ1KeXnbwgbL7bf" target="_blank" rel="noopener">
+        <p class="card-label">Guardada <span class="ext">↗</span></p>
+        <p class="card-value">Ondas Gamma para concentración</p>
+        <p class="card-detail">442 canciones binaurales. Para las sesiones largas frente a una planilla.</p>
+      </a>
+    </div>
+  </section>
+
+<footer class="wrap">
+  <p class="terminal"><span class="prompt">pablo@melinka</span>:~$ status<br><span class="out">en línea, la mayoría de los días.</span></p>
+  <div class="footer-row">
+    <span>© 2026 Pablo Villagrán</span>
+    <a href="mailto:hola@pablovillagran.cl">hola@pablovillagran.cl</a>
+    <span>Hecho a mano, en un solo archivo HTML.</span>
+  </div>
+</footer>
+
+<script>
+  // Revelado de tarjetas al hacer scroll
+  const cards = document.querySelectorAll('.card');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(c => io.observe(c));
+  } else {
+    cards.forEach(c => c.classList.add('visible'));
+  }
+</script>
+
+</body>
+</html>
