@@ -576,6 +576,7 @@
       <nav class="nav" aria-label="Navegación principal">
         <a href="#videos">Viajes</a>
         <a href="#fotos">Fotos</a>
+        <a href="#orilla">Orilla</a>
         <a href="#notas">Notas</a>
       </nav>
       <button class="music-btn" id="music-btn" aria-expanded="false" aria-controls="music-panel">
@@ -641,6 +642,20 @@
       </div>
       <p class="section-intro">Vistas que se repiten en cada trayecto y otras que no volvieron a aparecer. Cada fotografía conserva su fecha, lugar y referencia geográfica.</p>
       <div class="fotos" id="fotos-grid"></div>
+    </div>
+  </section>
+
+  <section id="orilla">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>La orilla</h2>
+        <span class="mono">Melinka · intermareal</span>
+      </div>
+      <p style="max-width:54ch;margin:-18px 0 34px;color:var(--ink-2)">
+        No todo se ve desde arriba. Cuando el avión queda en tierra, el archipiélago
+        se mira de rodillas: pozas de marea, conchas, algas y la luz baja de la tarde.
+      </p>
+      <div class="fotos" id="orilla-grid"></div>
     </div>
   </section>
 
@@ -828,69 +843,161 @@ document.addEventListener("keydown", e => {
 const FOTOS = [
   { archivo:"fotos/aereas/2024-10-31-volcan-melimoyu.jpg",
     titulo:"Volcán Melimoyu",
-    ruta:"44.08° S, 72.88° O · referencia del volcán",
+    ruta:"44.08° S, 72.88° O · posición aproximada",
     fecha:"2024-10",
     texto:"La cumbre glaciar del Melimoyu aparece sobre la cordillera durante el vuelo del 31 de octubre." },
   { archivo:"fotos/aereas/2019-06-30-cerros-el-tronador.jpg",
     titulo:"Cerros El Tronador",
-    ruta:"45.03° S, 72.66° O · posición aproximada de vuelo",
+    ruta:"45.03° S, 72.66° O · posición aproximada",
     fecha:"2019-06",
     texto:"La nieve borra la distancia entre el ala y la montaña durante el cruce hacia Puerto Cisnes." },
   { archivo:"fotos/aereas/2018-07-04-isla-lagarto.jpg",
     titulo:"Isla Lagarto",
-    ruta:"44.2156° S, 73.6764° O · 922 m",
+    ruta:"44.22° S, 73.68° O · 922 m",
     fecha:"2018-07",
     texto:"Desde la cabina, el archipiélago se abre en capas de islas y canales frente a la cordillera." },
   { archivo:"fotos/aereas/2024-05-04-isla-serrano.jpg",
     titulo:"Isla Serrano",
-    ruta:"44.1974° S, 73.6330° O · 303 m",
+    ruta:"44.20° S, 73.63° O · 303 m",
     fecha:"2024-05",
     texto:"La luz atraviesa el archipiélago y dibuja canales, islas y centros de cultivo bajo el ala." },
   { archivo:"fotos/aereas/2024-12-18-aproximacion-melinka.jpg",
     titulo:"Aproximación a Melinka",
-    ruta:"Isla Canelo · 43.8675° S, 73.7300° O · 208 m",
+    ruta:"Isla Canelo · 43.87° S, 73.73° O · 208 m",
     fecha:"2024-12",
     texto:"Melinka aparece al fondo de la bahía mientras la aeronave desciende sobre Isla Canelo." },
   { archivo:"fotos/aereas/2019-06-30-roca-blanca.jpg",
     titulo:"Roca Blanca",
-    ruta:"44.4886° S, 73.3264° O · 1.820 m",
+    ruta:"44.49° S, 73.33° O · 1.820 m",
     fecha:"2019-06",
     texto:"Una capa de nubes se abre sobre los fiordos durante el tramo hacia Puerto Cisnes." },
   { archivo:"fotos/aereas/2020-01-25-puente-presidente-ibanez.jpg",
     titulo:"Puente Presidente Ibáñez",
-    ruta:"Río Aysén · 45.3981° S, 72.6644° O",
+    ruta:"Río Aysén · 45.40° S, 72.66° O",
     fecha:"2020-01",
     texto:"El puente cruza el río y une los dos márgenes de Puerto Aysén bajo el ala." },
   { archivo:"fotos/aereas/2018-08-21-puerto-aysen.jpg",
     titulo:"Puerto Aysén",
-    ruta:"45.3631° S, 72.7008° O",
+    ruta:"45.36° S, 72.70° O",
     fecha:"2018-08",
     texto:"El río, la ciudad y la cordillera se ordenan en una sola vista antes de la aproximación." },
   { archivo:"fotos/aereas/2020-01-18-entrada-puerto-montt.jpg",
     titulo:"Entrada a Puerto Montt",
-    ruta:"Isla Capeaguapi · 41.6245° S, 72.9886° O · 493 m",
+    ruta:"Isla Capeaguapi · 41.62° S, 72.99° O · 493 m",
     fecha:"2020-01",
     texto:"La bahía y la ciudad se extienden frente a la cabina, con la cordillera recortada sobre el horizonte." },
   { archivo:"fotos/aereas/2025-03-12-punta-melinka.jpg",
     titulo:"Punta Melinka",
-    ruta:"43.9005° S, 73.7403° O · 28 m",
+    ruta:"43.90° S, 73.74° O · 28 m",
     fecha:"2025-03",
     texto:"La última curva antes de aterrizar: el ala en primer plano y Melinka junto al mar." },
+  { archivo:"fotos/aereas/2025-02-06-rio-playa-ancha.jpg",
+    titulo:"Mar de nubes sobre el Río Playa Ancha",
+    ruta:"44.87° S, 72.55° O · 3.357 m",
+    fecha:"2025-02",
+    texto:"A esta altura la capa de nubes se vuelve un segundo mar y desaparece toda referencia de suelo." },
+  { archivo:"fotos/aereas/2024-10-31-cordillera-y-volcan.jpg",
+    titulo:"Cordillera y volcán",
+    ruta:"Sin coordenada registrada · vuelo del 31 de octubre",
+    fecha:"2024-10",
+    texto:"El cordón nevado se extiende de punta a punta y un cono aislado marca el fondo del encuadre." },
+  { archivo:"fotos/aereas/2024-05-04-archipielago-a-contraluz.jpg",
+    titulo:"Archipiélago a contraluz",
+    ruta:"Sobre las Guaitecas · sin coordenada registrada",
+    fecha:"2024-05",
+    texto:"La hélice se difumina sobre las islas y el mar queda plateado por el contraluz de la mañana." },
+  { archivo:"fotos/aereas/2019-06-30-cordon-nevado.jpg",
+    titulo:"Cordón nevado desde la ventana",
+    ruta:"Sin coordenada registrada · tramo a Puerto Cisnes",
+    fecha:"2019-06",
+    texto:"El marco de la ventana recorta la montaña y convierte el vuelo en un encuadre ya hecho." },
+  { archivo:"fotos/aereas/2019-06-30-canal-entre-nubes.jpg",
+    titulo:"Canal entre nubes",
+    ruta:"Sin coordenada registrada · tramo a Puerto Cisnes",
+    fecha:"2019-06",
+    texto:"El agua oscura del canal aparece por un corte entre las nubes, sin orilla visible a los lados." },
+  { archivo:"fotos/aereas/2018-06-30-volcan-bajo-el-ala.jpg",
+    titulo:"Volcán bajo el ala",
+    ruta:"Sin coordenada registrada",
+    fecha:"2018-06",
+    texto:"Luz rasante de la primera hora sobre el cono nevado. La mejor luz de todo el archivo." },
+  { archivo:"fotos/aereas/2015-11-18-seno-magdalena.jpg",
+    titulo:"Seno Magdalena",
+    ruta:"44.65° S, 72.96° O · 5.155 m",
+    fecha:"2015-11",
+    texto:"La toma más alta del archivo. A 5.155 metros el campo de hielo pierde el color y queda casi en blanco y negro." },
+  { archivo:"fotos/aereas/2014-03-06-sobre-el-mar-de-nubes.jpg",
+    titulo:"Sobre el mar de nubes",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-03",
+    texto:"El ala corta la capa de nubes con el sol en contra. La fotografía aérea más antigua de la serie." },
 ];
 
+
+
+const ORILLA = [
+  { archivo:"fotos/orilla/2014-11-02-anemonas.jpg",
+    titulo:"Anémonas",
+    ruta:"Isla Falsa · 43.89° S, 73.74° O",
+    fecha:"2014-11",
+    texto:"Abiertas bajo unos centímetros de agua. El color es el que había, sin ayuda de nadie." },
+  { archivo:"fotos/orilla/2014-11-02-agua-sobre-las-algas.jpg",
+    titulo:"Agua sobre las algas",
+    ruta:"Melinka · sin coordenada registrada",
+    fecha:"2014-11",
+    texto:"El sol de la tarde atraviesa el agua quieta y la vuelve una lámina dorada sobre el fondo." },
+  { archivo:"fotos/orilla/2014-11-02-picorocos.jpg",
+    titulo:"Picorocos",
+    ruta:"Melinka · sin coordenada registrada",
+    fecha:"2014-11",
+    texto:"Dos colonias sobre la roca negra, rodeadas de cirripedios más chicos. Detalle de un metro cuadrado." },
+  { archivo:"fotos/orilla/2014-11-02-caracol-en-la-poza.jpg",
+    titulo:"Caracol en la poza",
+    ruta:"Isla Falsa · 43.89° S, 73.74° O",
+    fecha:"2014-11",
+    texto:"Un caracol sobre la piedra con líquenes, en el borde de una poza que se vacía con la marea." },
+  { archivo:"fotos/orilla/2014-05-21-playa-de-conchas.jpg",
+    titulo:"Playa de conchas",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-05",
+    texto:"Conchas moradas y blancas a contraluz, con el sol bajo entrando por el costado. La mejor toma cercana del archivo." },
+  { archivo:"fotos/orilla/2014-05-21-bosque-contra-el-mar.jpg",
+    titulo:"Bosque contra el mar",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-05",
+    texto:"Los árboles altos aguantan el viento en el límite mismo de la costa, con el canal detrás." },
+  { archivo:"fotos/orilla/2014-05-21-punta-rocosa.jpg",
+    titulo:"Punta rocosa",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-05",
+    texto:"La punta se adentra en el agua y el islote queda recortado al fondo, mar abierto de por medio." },
+  { archivo:"fotos/orilla/2014-05-21-playa-de-piedras.jpg",
+    titulo:"Playa de piedras",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-05",
+    texto:"Canto rodado, agua azul y una isla baja en el horizonte. La postal cotidiana del archipiélago." },
+  { archivo:"fotos/orilla/2014-03-07-islote-con-baliza.jpg",
+    titulo:"Islote con baliza",
+    ruta:"Sin coordenada registrada",
+    fecha:"2014-03",
+    texto:"Una baliza sobre el islote marca el canal. Al fondo, la cordillera cierra el paso del agua." },
+];
+
+const TODAS = FOTOS.concat(ORILLA);
+
 document.getElementById("stat-fotos").textContent =
-  `${FOTOS.length} ${FOTOS.length === 1 ? "fotografía" : "fotografías"}`;
+  `${FOTOS.length + ORILLA.length} fotografías`;
 
 const fmtMes = ym => { const [a,m] = ym.split("-").map(Number); return `${MESES[m-1]} ${a}`; };
 const fotosGrid = document.getElementById("fotos-grid");
 
-if (FOTOS.length === 0) {
+if (FOTOS.length + ORILLA.length === 0) {
   fotosGrid.innerHTML = `<p class="empty">Todavía no hay fotos publicadas. Las primeras vienen en camino.</p>`;
 } else {
-  fotosGrid.innerHTML = FOTOS.map((f, i) => `
+  const tarjetas = (lista, desde) => lista.map((f, i) => `
     <article class="foto">
       <figure>
-        <button class="shot" data-i="${i}" aria-label="Ampliar: ${f.titulo}">
+        <button class="shot" data-i="${desde + i}" aria-label="Ampliar: ${f.titulo}">
           <img src="${f.archivo}" alt="${f.titulo}" loading="lazy">
         </button>
         <figcaption>
@@ -902,10 +1009,14 @@ if (FOTOS.length === 0) {
     </article>
   `).join("");
 
+  fotosGrid.innerHTML = tarjetas(FOTOS, 0);
+  const orillaGrid = document.getElementById("orilla-grid");
+  if (orillaGrid) orillaGrid.innerHTML = tarjetas(ORILLA, FOTOS.length);
+
   let lb = null, actual = 0;
 
   const pintar = i => {
-    const f = FOTOS[i];
+    const f = TODAS[i];
     actual = i;
     lb.innerHTML = `
       <button class="lb-close" aria-label="Cerrar">&times;</button>
@@ -919,7 +1030,8 @@ if (FOTOS.length === 0) {
 
   const cerrar = () => { if (lb) { lb.remove(); lb = null; document.body.style.overflow = ""; } };
 
-  fotosGrid.addEventListener("click", e => {
+  [fotosGrid, document.getElementById("orilla-grid")].filter(Boolean).forEach(grid =>
+  grid.addEventListener("click", e => {
     const b = e.target.closest(".shot");
     if (!b) return;
     lb = document.createElement("div");
@@ -930,13 +1042,13 @@ if (FOTOS.length === 0) {
     lb.addEventListener("click", ev => {
       if (ev.target === lb || ev.target.closest(".lb-close")) cerrar();
     });
-  });
+  }));
 
   document.addEventListener("keydown", e => {
     if (!lb) return;
     if (e.key === "Escape") cerrar();
-    if (e.key === "ArrowRight") pintar((actual + 1) % FOTOS.length);
-    if (e.key === "ArrowLeft") pintar((actual - 1 + FOTOS.length) % FOTOS.length);
+    if (e.key === "ArrowRight") pintar((actual + 1) % TODAS.length);
+    if (e.key === "ArrowLeft") pintar((actual - 1 + TODAS.length) % TODAS.length);
   });
 }
 
