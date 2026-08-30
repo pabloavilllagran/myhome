@@ -204,6 +204,11 @@
     gap:30px 26px;
   }
   .video figure{ margin:0; }
+  .video--short{
+    width:100%;
+    max-width:360px;
+    justify-self:center;
+  }
   .frame{
     position:relative;
     aspect-ratio:16/9;
@@ -216,6 +221,7 @@
     padding:0;
     display:block;
   }
+  .frame--short{ aspect-ratio:9/16; }
   .frame img{
     width:100%; height:100%; object-fit:cover; display:block;
     transition:transform .5s ease, filter .3s ease;
@@ -528,7 +534,8 @@ const VIDEOS = [
     id: "JqiZWWDqvwc",
     titulo: "Desde la ventana | Aysén, Chiloé y Melimoyu",
     texto: "Un adelanto de los paisajes aéreos que irán formando parte de este vlog personal.",
-    fecha: "2026-08-30"
+    fecha: "2026-08-30",
+    vertical: true
   },
   // Copia este bloque para cada video nuevo:
   // { id: "ID_DE_YOUTUBE", titulo: "Título del video", texto: "Una línea de qué trata.", fecha: "2026-08-30" },
@@ -561,9 +568,9 @@ if (VIDEOS.length === 0) {
   grid.innerHTML = `<p class="empty">Todavía no hay videos publicados. Cuando suba el primero aparece acá.</p>`;
 } else {
   grid.innerHTML = VIDEOS.map(v => `
-    <article class="video">
+    <article class="video${v.vertical ? " video--short" : ""}">
       <figure>
-        <button class="frame" data-id="${v.id}" aria-label="Reproducir: ${v.titulo}">
+        <button class="frame${v.vertical ? " frame--short" : ""}" data-id="${v.id}" data-vertical="${v.vertical ? "true" : "false"}" aria-label="Reproducir: ${v.titulo}">
           <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy">
           <span class="play"><span></span></span>
         </button>
@@ -581,7 +588,7 @@ if (VIDEOS.length === 0) {
     if (!btn) return;
     const id = btn.dataset.id;
     const holder = document.createElement("div");
-    holder.className = "frame";
+    holder.className = `frame${btn.dataset.vertical === "true" ? " frame--short" : ""}`;
     holder.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
     btn.replaceWith(holder);
   });
