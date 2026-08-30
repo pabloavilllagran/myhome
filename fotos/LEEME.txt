@@ -1,0 +1,4 @@
+Fotos del sitio.
+
+Deja acá los archivos y agrega la entrada correspondiente en la lista FOTOS
+al final de index.html. Optimiza antes: ancho maximo 2000px, JPG calidad 80.
