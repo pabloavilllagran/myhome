@@ -212,10 +212,10 @@
   }
 
   /* ---------- Secciones ---------- */
-  section{ padding:clamp(56px, 9vw, 96px) 0; border-bottom:1px solid var(--rule); }
+  section{ padding:clamp(46px, 6.5vw, 74px) 0; border-bottom:1px solid var(--rule); }
   .sec-head{
     display:flex; align-items:baseline; justify-content:space-between;
-    gap:16px; margin-bottom:44px;
+    gap:16px; margin-bottom:30px;
   }
   .sec-head h2{
     font-family:var(--display);
@@ -499,17 +499,18 @@
     transition:transform .6s ease, filter .3s ease;
   }
   .foto button.shot:hover img{ transform:scale(1.03); filter:brightness(.94); }
-  .foto figcaption{ margin-top:12px; }
+  .foto figcaption{ margin-top:16px; }
   .foto h3{
     font-family:var(--display); font-weight:500;
-    font-size:1rem; line-height:1.35; letter-spacing:-0.01em;
-    margin:0 0 5px;
+    font-size:1.28rem; line-height:1.25; letter-spacing:-0.015em;
+    margin:0 0 7px;
   }
-  .foto p{ margin:0; font-size:0.9rem; color:var(--ink-2); }
+  .foto p{ margin:0; font-size:0.98rem; line-height:1.55; color:var(--ink-2); }
   .foto .ruta{
-    display:block; margin-top:8px;
-    font-family:var(--mono); font-size:0.68rem;
-    letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-3);
+    display:block; margin-top:11px; padding-top:9px;
+    border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:0.74rem;
+    letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-3);
   }
 
   @media (max-width:660px){
@@ -552,6 +553,12 @@
 
   /* El ancla deja aire para la barra fija */
   section[id], div[id]{ scroll-margin-top:84px; }
+
+  /* El hero cabe en una pantalla: la foto manda la altura, no el aire */
+  @media (min-width:860px){
+    .hero{ padding:clamp(26px, 3.4vw, 48px) 0 clamp(34px, 4.6vw, 60px); }
+    .hero-visual img{ aspect-ratio:auto; height:min(66vh, 580px); }
+  }
 </style>
 </head>
 <body>
