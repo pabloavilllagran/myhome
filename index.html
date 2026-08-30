@@ -549,6 +549,9 @@
     color:#F2F0EA; font-size:1.2rem; line-height:1;
   }
   .lb-close:hover{ background:rgba(255,255,255,0.18); }
+
+  /* El ancla deja aire para la barra fija */
+  section[id], div[id]{ scroll-margin-top:84px; }
 </style>
 </head>
 <body>
@@ -726,7 +729,7 @@ if (VIDEOS.length === 0) {
     <article class="video${v.vertical ? " video--short" : ""}">
       <figure>
         <button class="frame${v.vertical ? " frame--short" : ""}" data-id="${v.id}" data-vertical="${v.vertical ? "true" : "false"}" aria-label="Reproducir: ${v.titulo}">
-          <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy">
+          <img src="https://i.ytimg.com/vi/${v.id}/${v.vertical ? "oardefault" : "maxresdefault"}.jpg" alt="" loading="lazy">
           <span class="play"><span></span></span>
         </button>
         <figcaption>
