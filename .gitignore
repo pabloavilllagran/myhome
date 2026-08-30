@@ -1,8 +1,11 @@
 .DS_Store
 Thumbs.db
 
-# Material original: no va al repo ni al sitio (31 GB)
+# Material original y exportaciones: no van al repo (31 GB)
 media/
+
+# Los videos se sirven desde YouTube, no desde el repo
+videos/
 
 # Vault de Obsidian: proyecto aparte
 vault-patagonia/
