@@ -114,6 +114,12 @@
     transition:color .18s, border-color .18s;
   }
   .nav a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
+  .agenda-link{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--ink); border:1px solid var(--rule); border-radius:999px; padding:7px 10px;
+    white-space:nowrap; transition:background .18s, border-color .18s;
+  }
+  .agenda-link:hover{ background:var(--paper); border-color:var(--accent); }
 
   /* ---------- Portada ---------- */
   .hero{
@@ -195,6 +201,7 @@
     .topbar .wrap{ height:auto; min-height:60px; padding-top:8px; padding-bottom:8px; }
     .nav{ gap:12px; }
     .nav a{ font-size:.64rem; }
+    .agenda-link{ font-size:.61rem; padding:6px 8px; }
     .music-btn{ width:36px; height:36px; padding:0; justify-content:center; }
     .music-btn .music-label{ display:none; }
     .brand-copy small{ display:none; }
@@ -204,6 +211,7 @@
     .brand-copy strong{ max-width:72px; line-height:1.05; }
     .nav{ gap:9px; }
     .nav a{ font-size:.59rem; letter-spacing:.04em; }
+    .agenda-link{ font-size:.57rem; letter-spacing:.03em; padding:6px 7px; }
     .music-btn{ display:none; }
     .topright{ gap:8px; }
     .hero h1{ max-width:10ch; }
@@ -579,6 +587,7 @@
         <a href="#orilla">Orilla</a>
         <a href="#notas">Notas</a>
       </nav>
+      <a class="agenda-link" href="https://agenda.pablovillagran.cl">Mi Agenda</a>
       <button class="music-btn" id="music-btn" aria-expanded="false" aria-controls="music-panel">
         <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="music-label">Sonando</span>
