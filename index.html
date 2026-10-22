@@ -114,12 +114,6 @@
     transition:color .18s, border-color .18s;
   }
   .nav a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
-  .agenda-link{
-    font-family:var(--mono); font-size:.68rem; letter-spacing:.07em; text-transform:uppercase;
-    color:var(--ink); border:1px solid var(--rule); border-radius:999px; padding:7px 10px;
-    white-space:nowrap; transition:background .18s, border-color .18s;
-  }
-  .agenda-link:hover{ background:var(--paper); border-color:var(--accent); }
 
   /* ---------- Portada ---------- */
   .hero{
@@ -201,7 +195,6 @@
     .topbar .wrap{ height:auto; min-height:60px; padding-top:8px; padding-bottom:8px; }
     .nav{ gap:12px; }
     .nav a{ font-size:.64rem; }
-    .agenda-link{ font-size:.61rem; padding:6px 8px; }
     .music-btn{ width:36px; height:36px; padding:0; justify-content:center; }
     .music-btn .music-label{ display:none; }
     .brand-copy small{ display:none; }
@@ -211,7 +204,6 @@
     .brand-copy strong{ max-width:72px; line-height:1.05; }
     .nav{ gap:9px; }
     .nav a{ font-size:.59rem; letter-spacing:.04em; }
-    .agenda-link{ font-size:.57rem; letter-spacing:.03em; padding:6px 7px; }
     .music-btn{ display:none; }
     .topright{ gap:8px; }
     .hero h1{ max-width:10ch; }
@@ -507,6 +499,12 @@
     transition:transform .6s ease, filter .3s ease;
   }
   .foto button.shot:hover img{ transform:scale(1.03); filter:brightness(.94); }
+  .foto--vertical button.shot img,
+  .foto--vertical:first-child button.shot img{
+    aspect-ratio:auto;
+    max-height:80vh;
+    object-fit:contain;
+  }
   .foto figcaption{ margin-top:16px; }
   .foto h3{
     font-family:var(--display); font-weight:500;
@@ -587,7 +585,6 @@
         <a href="#orilla">Orilla</a>
         <a href="#notas">Notas</a>
       </nav>
-      <a class="agenda-link" href="https://agenda.pablovillagran.cl">Mi Agenda</a>
       <button class="music-btn" id="music-btn" aria-expanded="false" aria-controls="music-panel">
         <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="music-label">Sonando</span>
@@ -646,10 +643,10 @@
   <section id="fotos">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Archivo aéreo</h2>
-        <span class="mono">Aysén · Chiloé · Patagonia</span>
+        <h2>Archivo de viajes</h2>
+        <span class="mono">Aysén · Chiloé · Los Lagos</span>
       </div>
-      <p class="section-intro">Vistas que se repiten en cada trayecto y otras que no volvieron a aparecer. Cada fotografía conserva su fecha, lugar y referencia geográfica.</p>
+      <p class="section-intro">Desde el aire y a pie: paisajes y lugares que forman parte de cada recorrido. Cada fotografía conserva su fecha, lugar y referencia geográfica.</p>
       <div class="fotos" id="fotos-grid"></div>
     </div>
   </section>
@@ -850,6 +847,12 @@ document.addEventListener("keydown", e => {
    Lo más nuevo primero. Optimiza la imagen antes (ancho máximo 2000px).
 --------------------------------------------------------------------------- */
 const FOTOS = [
+  { archivo:"fotos/viajes/2026-09-27-calbuco.jpg",
+    titulo:"Calbuco",
+    ruta:"Calbuco · Región de Los Lagos · 41.77125° S, 73.12761° O",
+    fecha:"2026-09-27",
+    vertical:true,
+    texto:"El nombre de Calbuco sobre una torre revestida de tejuelas, entre las fachadas y la luz del centro de la ciudad." },
   { archivo:"fotos/aereas/2024-10-31-volcan-melimoyu.jpg",
     titulo:"Volcán Melimoyu",
     ruta:"44.08° S, 72.88° O · posición aproximada",
@@ -997,14 +1000,14 @@ const TODAS = FOTOS.concat(ORILLA);
 document.getElementById("stat-fotos").textContent =
   `${FOTOS.length + ORILLA.length} fotografías`;
 
-const fmtMes = ym => { const [a,m] = ym.split("-").map(Number); return `${MESES[m-1]} ${a}`; };
+const fmtMes = ym => { if (ym.length === 10) return fmt(ym); const [a,m] = ym.split("-").map(Number); return `${MESES[m-1]} ${a}`; };
 const fotosGrid = document.getElementById("fotos-grid");
 
 if (FOTOS.length + ORILLA.length === 0) {
   fotosGrid.innerHTML = `<p class="empty">Todavía no hay fotos publicadas. Las primeras vienen en camino.</p>`;
 } else {
   const tarjetas = (lista, desde) => lista.map((f, i) => `
-    <article class="foto">
+    <article class="foto${f.vertical ? " foto--vertical" : ""}">
       <figure>
         <button class="shot" data-i="${desde + i}" aria-label="Ampliar: ${f.titulo}">
           <img src="${f.archivo}" alt="${f.titulo}" loading="lazy">
